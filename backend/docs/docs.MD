@@ -1,0 +1,1 @@
+# Documentation for Hackathon Management Platform API

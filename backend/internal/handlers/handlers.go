@@ -1,6 +1,14 @@
+/**
+ * @author Krishna Teja Mekala
+ * @email [krishna18developer@gmail.com]
+ * @create date 26-08-2024 11:15:37
+ * @modify date 26-08-2024 11:15:37
+ * @desc [description]
+ */
 package handlers
 
 import (
+	"hackathon-management-platform/internal"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -8,7 +16,7 @@ import (
 
 func GetHackathons(c *gin.Context) {
 	// Sample data, replace with actual data fetching
-	hackathons := []string{"Hackathon 1", "Hackathon 2"}
+	hackathons := []string{"Hackathon 1", "Hackathon 2", internal.GetConfig().DATABASE_NAME}
 	c.JSON(http.StatusOK, hackathons)
 }
 
