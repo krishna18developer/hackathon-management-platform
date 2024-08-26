@@ -5,7 +5,7 @@
  * @modify date 26-08-2024 15:07:28
  * @desc [description]
  */
-package hackathons
+package domains
 
 import (
 	"context"
@@ -19,17 +19,17 @@ import (
 )
 
 func Create(c *gin.Context) {
-	hackathon := models.NewHackathon()
-	if err := c.ShouldBindJSON(&hackathon); err != nil {
+	domain := models.NewDomain()
+	if err := c.ShouldBindJSON(&domain); err != nil {
 		c.JSON(http.StatusBadRequest, internal.Response{Msg: err.Error()})
 		return
 	}
-	hackathon.ID = primitive.NewObjectID()
-	_, err := database.HackathonsCollection.InsertOne(context.TODO(), hackathon)
+	domain.ID = primitive.NewObjectID()
+	_, err := database.DomainsCollection.InsertOne(context.TODO(), domain)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, internal.Response{Msg: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, internal.Response{Msg: "Hackathon Created Successfully !", Data: hackathon})
+	c.JSON(http.StatusCreated, internal.Response{Msg: "Domain Created Successfully !", Data: domain})
 }

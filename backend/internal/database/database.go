@@ -18,6 +18,7 @@ var (
 	client               *mongo.Client
 	UsersCollection      *mongo.Collection
 	HackathonsCollection *mongo.Collection
+	DomainsCollection    *mongo.Collection
 	ReportsCollection    *mongo.Collection
 )
 
@@ -37,6 +38,7 @@ func Connect(uri string, DatabaseName string) error {
 	// Initialize collections
 	UsersCollection = client.Database(DatabaseName).Collection(HMP_UsersCollection)
 	HackathonsCollection = client.Database(DatabaseName).Collection(HMP_HackathonsCollection)
+	DomainsCollection = client.Database(DatabaseName).Collection(HMP_HackathonsCollection)
 	ReportsCollection = client.Database(DatabaseName).Collection(HMP_ReportsCollection)
 
 	return nil

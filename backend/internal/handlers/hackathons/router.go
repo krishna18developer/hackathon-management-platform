@@ -9,6 +9,7 @@ package hackathons
 
 import (
 	"hackathon-management-platform/internal"
+	"hackathon-management-platform/internal/handlers/hackathons/domains"
 	"hackathon-management-platform/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,9 @@ import (
 // SetupRouter initializes the hackathon routes
 func SetupRouter(router *gin.RouterGroup) {
 	hackathonsRouter := router.Group("/")
+	domainsRouter := router.Group("/domains")
+	domains.SetupRouter(domainsRouter)
+
 	hackathonsRouter.Use(middleware.JWTMiddleware())
 	{
 		hackathonsRouter.POST("/", middleware.RoleMiddleware([]string{internal.SuperAdmin, internal.Admin, internal.Judge}), Create)
