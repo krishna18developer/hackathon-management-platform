@@ -22,9 +22,6 @@ var (
 )
 
 func Connect(uri string, DatabaseName string) error {
-	//DatabaseName := internal.DatabaseName
-	//DatabaseName := "hackathon-management-platform"
-
 	var err error
 	client, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {

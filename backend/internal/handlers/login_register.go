@@ -18,12 +18,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const (
-	SuperAdmin = "SuperAdmin"
-	Admin      = "Admin"
-	Judge      = "Judge"
-)
-
 // Register handles user registration
 func Register(c *gin.Context) {
 	var newUser models.User
@@ -33,7 +27,7 @@ func Register(c *gin.Context) {
 	}
 
 	if newUser.Role == "" {
-		newUser.Role = Admin
+		newUser.Role = internal.Admin
 	}
 
 	if newUser.Name == "" {
@@ -41,13 +35,13 @@ func Register(c *gin.Context) {
 	}
 
 	switch newUser.Role {
-	case SuperAdmin:
+	case internal.SuperAdmin:
 		newUser.Department = "Management"
 		newUser.Year = -1
-	case Admin:
+	case internal.Admin:
 		newUser.Department = "Management"
 		newUser.Year = -2
-	case Judge:
+	case internal.Judge:
 		newUser.Department = "Auditing"
 		newUser.Year = -3
 	}

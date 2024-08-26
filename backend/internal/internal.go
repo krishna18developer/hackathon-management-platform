@@ -13,6 +13,12 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	SuperAdmin = "SuperAdmin"
+	Admin      = "Admin"
+	Judge      = "Judge"
+)
+
 type Config struct {
 	MONGO_URI_ADDRESS string `mapstructure:"MONGO_URI_ADDRESS"`
 	PORT              string `mapstructure:"PORT"`
@@ -44,14 +50,13 @@ func loadConfigFromViper(path string) (config Config, err error) {
 }
 
 func LoadConfig() {
-
-	config1, err := loadConfigFromViper(".")
+	var err error
+	config, err = loadConfigFromViper(".")
 	if err != nil {
 		log.Fatal("cannot load config:", err)
 	}
-	config = config1
 }
 
-func GetConfig() Config {
-	return config
+func GetConfig() *Config {
+	return &config
 }
