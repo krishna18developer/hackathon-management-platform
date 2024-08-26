@@ -13,6 +13,7 @@ import "go.mongodb.org/mongo-driver/bson/primitive"
 type Hackathon struct {
 	ID                  primitive.ObjectID   `bson:"_id,omitempty" json:"id,omitempty"`
 	HackathonName       string               `bson:"HackathonName" json:"HackathonName"`
+	HackathonDuration   int                  `bson:"HackathonDuration" json:"HackathonDuration"` // Duration in Hours
 	HackathonStatus     string               `bson:"HackathonStatus" json:"HackathonStatus"`
 	HackathonOrganisers []primitive.ObjectID `bson:"HackathonOrganisers" json:"HackathonOrganisers"` // Refers User Model
 	HackathonSponsors   []string             `bson:"HackathonSponsors" json:"HackathonSponsors"`
@@ -22,6 +23,7 @@ type Hackathon struct {
 func NewHackathon() *Hackathon {
 	return &Hackathon{
 		HackathonName:       "New Hackathon",
+		HackathonDuration:   24,
 		HackathonOrganisers: []primitive.ObjectID{},
 		HackathonSponsors:   []string{},
 		HackathonDomains:    []primitive.ObjectID{},
