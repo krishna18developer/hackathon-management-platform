@@ -26,6 +26,19 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	if newUser.Username == "" || newUser.Password == "" {
+		c.JSON(http.StatusBadRequest, internal.Response{Msg: "Insufficient Details"})
+		return
+	}
+
+	// Check if username already exists
+	var existingUser models.User
+	err := database.UsersCollection.FindOne(context.TODO(), gin.H{"Username": newUser.Username}).Decode(&existingUser)
+	if err == nil {
+		c.JSON(http.StatusConflict, internal.Response{Msg: "Username already exists"})
+		return
+	}
+
 	if newUser.Role == "" {
 		newUser.Role = internal.Admin
 	}
