@@ -10,5 +10,6 @@ package database
 const (
 	HMP_UsersCollection      = "users"
 	HMP_HackathonsCollection = "hackathons"
+	HMP_DomainsCollection    = "hackathon-domains"
 	HMP_ReportsCollection    = "reports"
 )

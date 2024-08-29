@@ -1,3 +1,10 @@
+/**
+ * @author Krishna Teja Mekala
+ * @email [krishna18developer@gmail.com]
+ * @create date 26-08-2024 11:16:40
+ * @modify date 26-08-2024 11:16:40
+ * @desc [description]
+ */
 package database
 
 import (
@@ -11,13 +18,11 @@ var (
 	client               *mongo.Client
 	UsersCollection      *mongo.Collection
 	HackathonsCollection *mongo.Collection
+	DomainsCollection    *mongo.Collection
 	ReportsCollection    *mongo.Collection
 )
 
 func Connect(uri string, DatabaseName string) error {
-	//DatabaseName := internal.DatabaseName
-	//DatabaseName := "hackathon-management-platform"
-
 	var err error
 	client, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
@@ -33,6 +38,7 @@ func Connect(uri string, DatabaseName string) error {
 	// Initialize collections
 	UsersCollection = client.Database(DatabaseName).Collection(HMP_UsersCollection)
 	HackathonsCollection = client.Database(DatabaseName).Collection(HMP_HackathonsCollection)
+	DomainsCollection = client.Database(DatabaseName).Collection(HMP_HackathonsCollection)
 	ReportsCollection = client.Database(DatabaseName).Collection(HMP_ReportsCollection)
 
 	return nil
