@@ -47,8 +47,7 @@
 .navbar a.active{
     color: white;
 }
-
-.social-media{
+.social-media {
     display: flex;
     justify-content: space-between;
     width: 100px;
@@ -66,7 +65,7 @@
     text-decoration: none;
     transform: rotate(45deg);
     transition: .5s;
-    opacity: 0;
+    opacity: 1; /* Ensure opacity is set to 1 */
     animation: slideSci .5s ease forwards;
     animation-delay: calc(.2s * var(--i));
 }
@@ -77,10 +76,9 @@
 
 .social-media a i {
     font-size: 24px;
-    color: rgb(0, 0, 0);
     transform: rotate(-45deg);
+    color: blueviolet; /* Ensure the color is set here */
 }
-
 .home {
     position: relative;
     width: 100vw;
@@ -99,6 +97,7 @@
 .home-content h1 {
     font-size: 50px;
     line-height: 1.2;
+    font-weight: bold;
     opacity: 0;
     animation: slideBottom 1s ease forwards;
     animation-delay: 1s;

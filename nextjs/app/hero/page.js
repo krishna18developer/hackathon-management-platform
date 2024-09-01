@@ -1,12 +1,12 @@
-import React from "react";
-import "./hero.css";
-import Image from "next/image";
-import heroimg from '../../public/imgs/heropageimg.png';
 import 'boxicons/css/boxicons.min.css';
+import React from 'react';
+import './hero.css';
+import Image from 'next/image';
+import heroimg from '../../public/imgs/heropageimg.png';
 
 function Hero() {
   return (
-    <div className="w-[100vw] h-screen overflow-y-hidden">
+    <div className="w-[95vw]">
       <header className="header">
         <a href="#" className="logo">logo</a>
 
@@ -25,19 +25,19 @@ function Hero() {
         </div>
       </header>
 
-      <section className="home " id="home">
-        <video autoPlay muted loop className="bg-video  h-screen">
+      <section className="home" id="home">
+        <video autoPlay muted loop className="bg-video">
           <source src="./vid/bg.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="home-content ">
+        <div className="home-content">
           <h1>hackathon</h1>
           <h3>"Hack. Create. Innovate."</h3>
           <p>Unleash your creativity at our intense, 48-hour hackathon where tech enthusiasts, developers, and designers come together to build innovative software solutions. Collaborate, compete, and showcase your skills in a dynamic and fun environment. Whether you're a seasoned coder or just starting out, there's a place for you to make an impact and bring your ideas to life. Get ready for exciting challenges, networking opportunities, and awesome prizes!</p>
           <a href="#register" className="btn">Register</a>
         </div>
 
-        <div className="home-img  ">
+        <div className="home-img">
           <div className="rhombus">
             <Image src={heroimg} alt="Hero Image" />
           </div>
