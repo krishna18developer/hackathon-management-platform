@@ -7,9 +7,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body{
-    background: gray;
-}
 
 .header{
     position: fixed;
@@ -29,14 +26,14 @@ body{
     color: white;
     text-decoration: none;
     font-weight: 600;
-    opacity: 0;
     animation: slideRight 1s ease forwards;
+    opacity: 1;
 }
 
 .navbar a{
     display: inline-block;
     font-size: 18px;
-    color: black;
+    color: rgba(64, 62, 62, 0.588);
     text-decoration: none;
     font-weight: 500;
     margin: 0 10px;
@@ -87,7 +84,7 @@ body{
 .home {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -105,6 +102,7 @@ body{
     opacity: 0;
     animation: slideBottom 1s ease forwards;
     animation-delay: 1s;
+    color: white;
 }
 
 .home-content h3 {
@@ -121,17 +119,18 @@ body{
     opacity: 0;
     animation: slideLeft 1s ease forwards;
     animation-delay: 1.6s;
+    color: white;
 }
 
 .btn {
     display: inline-block;
     padding: 10px 28px;
-    background: white;
+    background: rgb(16, 14, 14);
     border: 2px solid white;
     border-radius: 6px;
     box-shadow: 0 0 10px black;
     font-size: 16px;
-    color: black;
+    color: rgb(255, 255, 255);
     letter-spacing: 1px;
     text-decoration: none;
     font-weight: 600;
@@ -156,7 +155,7 @@ body{
     position: absolute;
     width: 100%;
     height: 100%;
-    background: grey;
+    background: rgb(0, 0, 0);
     border: 20px solid white;
     box-shadow: -15px 15px 15px rgba(0, 0, 0, .5);
     opacity: 0;
@@ -279,51 +278,34 @@ body{
 
 /* Media Queries for responsiveness */
 @media (max-width: 768px) {
-    .logo {
-        color: #000000; /* Change to the desired color */
-    }
-
     .home {
         flex-direction: column;
-        align-items: center;
         text-align: center;
+        padding: 20px;
     }
 
-    .home-content {
-        justify-content: center;
-        text-align: center;
+    .home-content h1 {
+        font-size: 40px;
+    }
+
+    .home-content h3 {
+        font-size: 24px;
     }
 
     .home-img {
         width: 250px;
         height: 250px;
+        right: 0;
     }
 
-    .menu-icon {
-        display: block;
-        font-size: 30px;
-        cursor: pointer;
-        color: rgb(0, 0, 0);
+    .home-img .rhombus img {
+        top: 60px;
+        left: -150px;
+        max-width: 450px;
     }
 
     .navbar {
-        display: none;
-        flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.8);
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        padding: 20px;
-    }
-
-    .navbar a {
-        margin: 10px 0;
-        color: white;
-    }
-
-    .navbar.active {
-        display: flex;
+        display: none; /* Implement a toggle dropdown for mobile */
     }
 }
 
@@ -356,8 +338,12 @@ body{
         padding: 8px 20px;
     }
 }
-
-/* Hide the menu icon by default */
-.menu-icon {
-    display: none;
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
