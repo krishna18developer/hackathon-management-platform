@@ -4,13 +4,12 @@ pipeline {
     environment {
         BACKEND_DIR = 'backend'
         FRONTEND_DIR = 'nextjs'
-        SERVER_IP = '<your-aws-instance-ip>'  // Update with your AWS instance IP
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'production', url: 'https://github.com/krishna18developer/hackathon-management-platform.git'
+                git branch: 'production', url: 'https://github.com/krishna18developer/hackathon-management-platform.gitt'
             }
         }
 
