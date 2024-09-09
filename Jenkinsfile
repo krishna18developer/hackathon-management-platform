@@ -18,6 +18,7 @@ pipeline {
                 script {
                     dir(BACKEND_DIR) {
                         sh '''
+                        go mod tidy
                         go build -o backend
                         pkill -f backend || true
                         nohup ./backend > backend.log 2>&1 &
