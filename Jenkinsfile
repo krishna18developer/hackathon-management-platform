@@ -13,6 +13,20 @@ pipeline {
             }
         }
 
+        stage('Build Next.js Frontend') {
+            steps {
+                script {
+                    dir(FRONTEND_DIR) {
+                        sh '''
+                        npm install
+                        npm run build
+                        pm2 restart nextjs || pm2 start npm --name "nextjs" -- start
+                        '''
+                    }
+                }
+            }
+        }
+
         stage('Build Go Backend') {
             steps {
                 script {
@@ -28,19 +42,6 @@ pipeline {
             }
         }
 
-        stage('Build Next.js Frontend') {
-            steps {
-                script {
-                    dir(FRONTEND_DIR) {
-                        sh '''
-                        npm install
-                        npm run build
-                        pm2 restart nextjs || pm2 start npm --name "nextjs" -- start
-                        '''
-                    }
-                }
-            }
-        }
     }
 
     post {
