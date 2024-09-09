@@ -4,7 +4,6 @@ pipeline {
     environment {
         BACKEND_DIR = 'backend'
         FRONTEND_DIR = 'nextjs'
-        SERVER_IP = '<your-aws-instance-ip>'  // Update with your AWS instance IP
     }
 
     stages {
