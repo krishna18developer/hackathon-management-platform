@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'production', url: 'https://github.com/krishna18developer/hackathon-management-platform.gitt'
+                git branch: 'production', url: 'https://github.com/krishna18developer/hackathon-management-platform.git'
             }
         }
 
