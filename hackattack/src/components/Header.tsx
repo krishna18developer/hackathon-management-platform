@@ -16,6 +16,7 @@ const Header: React.FC = () => {
               <li><a href="#" data-after="Home">Home</a></li>
               <li><a href="#about" data-after="About">About</a></li>
               <li><a href="/register" data-after="Register">Register</a></li>
+              <li><a href="#contact" data-after="Contact">Contact</a></li>
             </ul>
           </div>
         </div>

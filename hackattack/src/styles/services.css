@@ -1,0 +1,38 @@
+/* Container for the service items */
+.service-bottom {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Space between cards */
+  }
+  
+  /* Individual service items */
+  .service-item {
+    background: #f9f9f9; /* Background color */
+    border: 1px solid #ddd; /* Border color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the card */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow effect */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text */
+  }
+  
+  /* Ensure that all service items have the same height */
+  .service-item {
+    min-height: 300px; /* Ensure a minimum height for all cards */
+  }
+  
+  .service-item .icon img {
+    max-width: 100px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  .service-item h2 {
+    margin: 15px 0; /* Spacing above and below the heading */
+  }
+  
+  .service-item p {
+    margin: 0; /* Remove default margin */
+    color: #555; /* Text color */
+  }
