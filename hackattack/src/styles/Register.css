@@ -1,0 +1,96 @@
+/* Reset previous styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: Arial, sans-serif;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  color: #ffffff;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+select, input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1e88e5;
+  color: #ffffff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+.team-member-form {
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.qr-code {
+  width: 200px;
+  height: 200px;
+  margin-top: 20px;
+}
+
+.errors, .success {
+  margin: 15px 0;
+  font-size: 1.1rem;
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.errors {
+  background-color: #d32f2f;
+  color: #ffffff;
+}
+
+.success {
+  background-color: #388e3c;
+  color: #ffffff;
+}

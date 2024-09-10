@@ -6,7 +6,7 @@ const Header: React.FC = () => {
       <div className="header container">
         <div className="nav-bar">
           <div className="brand">
-            <a href="#"><img src="/logo.png" alt="Hack Attack Logo" /></a>
+            <a href="#"><img src="/hackattack-logo.jpg" alt="Hack Attack Logo" /></a>
           </div>        
           <div className="nav-list">
             <div className="hamburger">
