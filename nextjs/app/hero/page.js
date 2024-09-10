@@ -14,7 +14,7 @@ function Hero() {
           <a href="#home" style={{ "--i": 1 }} className="active">Home</a>
           <a href="team.html" style={{ "--i": 2 }}>About</a>
           <a href="#" id="teamLink" style={{ "--i": 3 }}>Team</a>
-          <a href="#register" style={{ "--i": 4 }}>Register</a>
+          <a href="/register" style={{ "--i": 4 }}>Register</a>
           <a href="#" id="loginButton" style={{ "--i": 5 }}>Login</a>
         </nav>
 
@@ -34,7 +34,7 @@ function Hero() {
           <h1>hackathon</h1>
           <h3>"Hack. Create. Innovate."</h3>
           <p>Unleash your creativity at our intense, 48-hour hackathon where tech enthusiasts, developers, and designers come together to build innovative software solutions. Collaborate, compete, and showcase your skills in a dynamic and fun environment. Whether you're a seasoned coder or just starting out, there's a place for you to make an impact and bring your ideas to life. Get ready for exciting challenges, networking opportunities, and awesome prizes!</p>
-          <a href="#register" className="btn">Register</a>
+          <a href="/register" className="btn">Register</a>
         </div>
 
         <div className="home-img">
