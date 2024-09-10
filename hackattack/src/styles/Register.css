@@ -26,9 +26,16 @@ h1 {
   color: #ffffff;
 }
 
+.form-container {
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  padding: 40px;
+  width: 100%;
+  max-width: 900px; /* Increased max-width for a larger form */
+}
+
 .form-group {
   margin-bottom: 20px;
-  width: 100%;
 }
 
 label {
@@ -57,24 +64,19 @@ button {
   font-size: 1.1rem;
   cursor: pointer;
   margin-top: 20px;
+  display: block;
+  width: 100%;
 }
 
 button:hover {
   background-color: #1565c0;
 }
 
-.team-member-form {
-  background-color: #1f1f1f;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 25px;
-  width: 100%;
-}
-
 .qr-code {
   width: 200px;
   height: 200px;
-  margin-top: 20px;
+  display: block;
+  margin: 20px auto;
 }
 
 .errors, .success {

@@ -1,181 +1,184 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState } from 'react';
 import './../styles/Register.css';
-
-interface TeamMember {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  institution: string;
-  year: string;
-}
 
 const Register: React.FC = () => {
   const [teamLength, setTeamLength] = useState<number>(3);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(Array(3).fill({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    institution: '',
-    year: '',
-  }));
+  const [teamMembers, setTeamMembers] = useState<any[]>(Array.from({ length: 3 }, () => ({})));
   const [utr, setUtr] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState<string>('');
+  const [success, setSuccess] = useState<string | null>(null);
 
   const teamLengthOptions = [3, 4, 5, 6];
 
-  const handleTeamLengthChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const newLength = Number(e.target.value);
+  const handleTeamLengthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newLength = parseInt(e.target.value, 10);
     setTeamLength(newLength);
-    setTeamMembers(Array(newLength).fill({
-      name: '',
-      email: '',
-      phoneNumber: '',
-      institution: '',
-      year: '',
-    }));
+    setTeamMembers(Array.from({ length: newLength }, () => ({})));
   };
 
-  const handleTeamMemberChange = (index: number, field: keyof TeamMember, value: string) => {
-    const updatedTeamMembers = [...teamMembers];
-    updatedTeamMembers[index] = { ...updatedTeamMembers[index], [field]: value };
-    setTeamMembers(updatedTeamMembers);
-  };
-
-  const handleUtrChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUtr(e.target.value);
+  const handleInputChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setTeamMembers(members =>
+      members.map((member, i) => (i === index ? { ...member, [name]: value.toUpperCase() } : member))
+    );
   };
 
   const validateUtr = (utr: string) => /^\d{12}$/.test(utr);
+  const validateYear = (year: string) => /^[1-4]$/.test(year);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const validationErrors: string[] = [];
+    
+    let validationErrors: string[] = [];
+    
+    if (!validateUtr(utr)) {
+      validationErrors.push('Invalid UTR Number.');
+    }
 
-    if (!validateUtr(utr)) validationErrors.push('UTR number must be 12 digits.');
     teamMembers.forEach((member, index) => {
-      if (Object.values(member).some(field => !field)) validationErrors.push(`All fields must be filled for team member ${index + 1}`);
+      Object.values(member).forEach(value => {
+        if (!value) {
+          validationErrors.push(`All fields for team member ${index + 1} must be filled.`);
+        }
+      });
+
+      if (!validateYear(member.year)) {
+        validationErrors.push(`Year for team member ${index + 1} must be between 1 and 4.`);
+      }
     });
 
-    if (validationErrors.length) {
+    if (validationErrors.length > 0) {
       setErrors(validationErrors);
+      setSuccess(null);
       return;
     }
 
-    setErrors([]);
-    const formData = {
-      teamLength,
-      teamMembers,
-      utr,
-    };
-
-    console.log(JSON.stringify(formData));
+    const formData = { teamLength, teamMembers, utr };
+    console.log('Form Data:', JSON.stringify(formData));
 
     try {
-      // Replace with actual API request
-      await fetch('/api/register', {
+      const response = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
-      setSuccessMessage('Registration successful, payment pending, you will be emailed shortly.');
+      
+      if (response.ok) {
+        setSuccess('Registration successful, payment pending. You will be emailed shortly.');
+        setErrors([]);
+      } else {
+        throw new Error('Registration failed.');
+      }
     } catch (error) {
-      setSuccessMessage('Registration failed.');
+      setErrors(['Failed to submit registration. Please try again.']);
+      setSuccess(null);
     }
   };
 
   return (
     <div className="register-container">
-      <h1>Team Registration</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="teamLength">Team Length</label>
-          <select
-            id="teamLength"
-            value={teamLength}
-            onChange={handleTeamLengthChange}
-          >
-            {teamLengthOptions.map(option => (
-              <option key={option} value={option}>{option}</option>
-            ))}
-          </select>
-        </div>
-
-        {teamMembers.map((member, index) => (
-          <div key={index} className="team-member-form">
-            <h3>Team Member {index + 1}</h3>
-            <div className="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                value={member.name}
-                onChange={(e) => handleTeamMemberChange(index, 'name', e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                value={member.email}
-                onChange={(e) => handleTeamMemberChange(index, 'email', e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Phone Number</label>
-              <input
-                type="text"
-                value={member.phoneNumber}
-                onChange={(e) => handleTeamMemberChange(index, 'phoneNumber', e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Institution</label>
-              <input
-                type="text"
-                value={member.institution}
-                onChange={(e) => handleTeamMemberChange(index, 'institution', e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Year</label>
-              <input
-                type="text"
-                value={member.year}
-                onChange={(e) => handleTeamMemberChange(index, 'year', e.target.value)}
-              />
-            </div>
+      <h1>Hackathon Registration</h1>
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="teamLength">Team Length</label>
+            <select
+              id="teamLength"
+              value={teamLength}
+              onChange={handleTeamLengthChange}
+            >
+              {teamLengthOptions.map(option => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
           </div>
-        ))}
-
-
-        <div className="form-group">
-          <label>Payment QR Code</label>
-          <img src="/qrcode.png" alt="QR Code" className="qr-code" />
-        </div>
-
-        <div className="form-group">
-          <label>UTR Number</label>
-          <input
-            type="text"
-            value={utr}
-            onChange={handleUtrChange}
-          />
-        </div>
-
-
-        {errors.length > 0 && (
-          <div className="errors">
-            {errors.map((error, index) => (
-              <div key={index} className="error">{error}</div>
-            ))}
+          {teamMembers.map((_, index) => (
+            <div key={index} className="team-member-form">
+              <h3>Team Member {index + 1}</h3>
+              <div className="form-group">
+                <label htmlFor={`name-${index}`}>Name</label>
+                <input
+                  type="text"
+                  id={`name-${index}`}
+                  name="name"
+                  onChange={e => handleInputChange(index, e)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={`email-${index}`}>Email</label>
+                <input
+                  type="email"
+                  id={`email-${index}`}
+                  name="email"
+                  onChange={e => handleInputChange(index, e)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={`phone-${index}`}>Phone Number</label>
+                <input
+                  type="tel"
+                  id={`phone-${index}`}
+                  name="phone"
+                  onChange={e => handleInputChange(index, e)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={`institution-${index}`}>Institution</label>
+                <input
+                  type="text"
+                  id={`institution-${index}`}
+                  name="institution"
+                  onChange={e => handleInputChange(index, e)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={`branch-${index}`}>Branch</label>
+                <input
+                  type="text"
+                  id={`branch-${index}`}
+                  name="branch"
+                  onChange={e => handleInputChange(index, e)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={`year-${index}`}>Year</label>
+                <input
+                  type="number"
+                  id={`year-${index}`}
+                  name="year"
+                  min="1"
+                  max="4"
+                  onChange={e => handleInputChange(index, e)}
+                />
+              </div>
+            </div>
+          ))}
+          <div className="form-group">
+            <label htmlFor="utr">Payment QR Code</label>
+            <img className="qr-code" src="qrcode.png" alt="QR Code for Payment" />
           </div>
-        )}
-
-        {successMessage && <div className="success">{successMessage}</div>}
-
-        <button type="submit">Register</button>
-      </form>
+          <div className="form-group">
+            <label htmlFor="utr">UTR Number</label>
+            <input
+              type="text"
+              id="utr"
+              value={utr}
+              onChange={(e) => setUtr(e.target.value)}
+            />
+          </div>
+          <button type="submit">Register</button>
+          {errors.length > 0 && (
+            <div className="errors">
+              {errors.map((error, index) => <p key={index}>{error}</p>)}
+            </div>
+          )}
+          {success && (
+            <div className="success">
+              {success}
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
