@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import './../styles/Register.css';
 
 const Register: React.FC = () => {
-  const [teamLength, setTeamLength] = useState<number>(3);
+  const [teamSize, setteamSize] = useState<number>(3);
   const [teamMembers, setTeamMembers] = useState<any[]>(Array.from({ length: 3 }, () => ({})));
   const [utr, setUtr] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const teamLengthOptions = [3, 4, 5, 6];
+  const teamSizeOptions = [3, 4, 5, 6];
 
-  const handleTeamLengthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleteamSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLength = parseInt(e.target.value, 10);
-    setTeamLength(newLength);
+    setteamSize(newLength);
     setTeamMembers(Array.from({ length: newLength }, () => ({})));
   };
 
@@ -58,7 +58,7 @@ const Register: React.FC = () => {
       return;
     }
 
-    const formData = { teamLength, teamMembers, utr };
+    const formData = { teamSize, teamMembers, utr };
     console.log(formData);
 
     try {
@@ -86,13 +86,21 @@ const Register: React.FC = () => {
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="teamLength">Team Length</label>
+            <label>Team Name</label>
+            <input
+              type="text"
+              id="teamname"
+              name="name"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="teamSize">Team Size</label>
             <select
-              id="teamLength"
-              value={teamLength}
-              onChange={handleTeamLengthChange}
+              id="teamSize"
+              value={teamSize}
+              onChange={handleteamSizeChange}
             >
-              {teamLengthOptions.map(option => (
+              {teamSizeOptions.map(option => (
                 <option key={option} value={option}>{option}</option>
               ))}
             </select>

@@ -11,13 +11,15 @@ import "go.mongodb.org/mongo-driver/bson/primitive"
 
 // Hackathon represents the hackathon model in MongoDB
 type Hackathon struct {
-	ID                  primitive.ObjectID   `bson:"_id,omitempty" json:"id,omitempty"`
-	HackathonName       string               `bson:"HackathonName" json:"HackathonName"`
-	HackathonDuration   int                  `bson:"HackathonDuration" json:"HackathonDuration"` // Duration in Hours
-	HackathonStatus     string               `bson:"HackathonStatus" json:"HackathonStatus"`
-	HackathonOrganisers []primitive.ObjectID `bson:"HackathonOrganisers" json:"HackathonOrganisers"` // Refers User Model
-	HackathonSponsors   []string             `bson:"HackathonSponsors" json:"HackathonSponsors"`
-	HackathonDomains    []primitive.ObjectID `bson:"HackathonDomains" json:"HackathonDomains"` // Refers Domain Model
+	ID                       primitive.ObjectID   `bson:"_id,omitempty" json:"id,omitempty"`
+	HackathonName            string               `bson:"HackathonName" json:"HackathonName"`
+	HackathonDuration        int                  `bson:"HackathonDuration" json:"HackathonDuration"` // Duration in Hours
+	HackathonStatus          string               `bson:"HackathonStatus" json:"HackathonStatus"`
+	HackathonOrganisers      []primitive.ObjectID `bson:"HackathonOrganisers" json:"HackathonOrganisers"` // Refers User Model
+	HackathonSponsors        []string             `bson:"HackathonSponsors" json:"HackathonSponsors"`
+	HackathonDomains         []primitive.ObjectID `bson:"HackathonDomains" json:"HackathonDomains"` // Refers Domain Model
+	HackathonTeamsUnverified []Team               `bson:"HackathonTeamsUnverified" json:"HackathonTeamsUnverified"`
+	HackathonTeams           []Team               `bson:"HackathonTeams" json:"HackathonTeams"`
 }
 
 func NewHackathon() *Hackathon {
