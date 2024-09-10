@@ -17,6 +17,9 @@ const App: React.FC = () => {
           <Route path="/projects" element={<Projects />} />
           <Route path="/register" element={<Register />} />
         </Routes>
+        <footer>
+        <p>&copy; 2024 Hackattack Hackathon Management Platform. All rights reserved.</p>
+      </footer>
       </main>
     </>
   );
