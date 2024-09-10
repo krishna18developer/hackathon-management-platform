@@ -25,6 +25,7 @@ const Register: React.FC = () => {
 
   const validateUtr = (utr: string) => /^\d{12}$/.test(utr);
   const validateYear = (year: string) => /^[1-4]$/.test(year);
+  const validatePhoneNumber = (phone: string) => /^[0-9]{10,15}$/.test(phone);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const Register: React.FC = () => {
     }
 
     teamMembers.forEach((member, index) => {
-      Object.values(member).forEach(value => {
+      Object.entries(member).forEach(([key, value]) => {
         if (!value) {
           validationErrors.push(`All fields for team member ${index + 1} must be filled.`);
         }
@@ -44,6 +45,10 @@ const Register: React.FC = () => {
 
       if (!validateYear(member.year)) {
         validationErrors.push(`Year for team member ${index + 1} must be between 1 and 4.`);
+      }
+
+      if (!validatePhoneNumber(member.phone)) {
+        validationErrors.push(`Phone number for team member ${index + 1} is invalid.`);
       }
     });
 
@@ -54,7 +59,7 @@ const Register: React.FC = () => {
     }
 
     const formData = { teamLength, teamMembers, utr };
-    console.log('Form Data:', JSON.stringify(formData));
+    console.log(formData);
 
     try {
       const response = await fetch('/api/register', {
