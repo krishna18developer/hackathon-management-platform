@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         BACKEND_DIR = 'backend'
-        FRONTEND_DIR = 'nextjs'
+        FRONTEND_DIR = 'hackattack'
         SERVER_IP = '<your-aws-instance-ip>'  // Update with your AWS instance IP
     }
 
@@ -28,14 +28,12 @@ pipeline {
             }
         }
 
-        stage('Build Next.js Frontend') {
+        stage('Build React Frontend') {
             steps {
                 script {
                     dir(FRONTEND_DIR) {
                         sh '''
-                        npm install
-                        npm run build
-                        pm2 restart nextjs || pm2 start npm --name "nextjs" -- start
+                        echo 'In Progress'
                         '''
                     }
                 }
