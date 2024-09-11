@@ -6,17 +6,19 @@ import Hero from './Hero';
 import Sponsors from './Sponsors';
 import Contact from './Contact';
 
+/*
+        <About />
+        <Contact />
+        <Sponsors />
+ */
 const Main: React.FC = () => {
   return (
     <>
         <Header />
         <Hero />
         <Services />
-        <About />
-        <Contact />
-        <Sponsors />
         <footer>
-        <p>&copy; 2024 Hackattack Hackathon Management Platform. All rights reserved.</p>
+        <p>&copy; 2024 Hackathon Management Platform. All rights reserved.</p>
       </footer>
     </>
   );

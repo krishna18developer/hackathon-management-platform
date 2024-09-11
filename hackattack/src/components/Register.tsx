@@ -19,19 +19,24 @@ const Register: React.FC = () => {
     const fetchHackathons = async () => {
       try {
         const response = await axios.get('/api/hackathons/names');
-        console.log(response.data);
-
+        
         if (response.status === 200) {
           const data = response.data;
-          setHackathons(data);
-          if (data.length > 0) {
+          if (Array.isArray(data) && data.length > 0) {
+            setHackathons(data);
             setSelectedHackathon(data[0].id); // Set the first hackathon as default
+          } else {
+            throw new Error('Unexpected data format');
           }
         } else {
-          throw new Error('Failed to fetch hackathons.');
+          throw new Error('Failed to fetch hackathons');
         }
       } catch (error) {
-        setErrors(['Failed to load hackathons.']);
+        // Fallback to default hackathon if there’s an error
+        const fallbackHackathon = { id: 'default', name: 'Hackattack 2024' };
+        setHackathons([fallbackHackathon]);
+        setSelectedHackathon(fallbackHackathon.id);
+       // setErrors(['Failed to load hackathons. Showing default hackathon.']);
       }
     };
 
@@ -41,8 +46,7 @@ const Register: React.FC = () => {
   const handleTeamSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newSize = parseInt(e.target.value, 10);
     setTeamSize(newSize);
-    setAmount(newSize*baseAmount);
-    console.log("Team Size Changed :", newSize );
+    setAmount(newSize * baseAmount);
     setTeamMembers(Array.from({ length: newSize }, () => ({})));
   };
 
@@ -211,7 +215,6 @@ const Register: React.FC = () => {
           ))}
           <div className="form-group">
             <label htmlFor="utr">Amount : ₹{amount}</label>
-            <img className="qr-code" src="qrcode.png" alt="QR Code for Payment" />
           </div>
           <div className="form-group">
             <label htmlFor="utr">Payment QR Code</label>
