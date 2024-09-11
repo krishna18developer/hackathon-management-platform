@@ -96,3 +96,7 @@ button:hover {
   background-color: #388e3c;
   color: #ffffff;
 }
+
+.selectHackathon-label{
+  color: rgb(209, 79, 79);
+}

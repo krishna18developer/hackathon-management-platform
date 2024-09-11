@@ -10,7 +10,8 @@ const Register: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null);
   const [hackathons, setHackathons] = useState<{ id: string; name: string }[]>([]);
   const [selectedHackathon, setSelectedHackathon] = useState<string>('');
-
+  const baseAmount = 600;
+  const [amount, setAmount] = useState<number>(3 * baseAmount);
   const teamSizeOptions = [3, 4, 5, 6];
 
   useEffect(() => {
@@ -40,6 +41,8 @@ const Register: React.FC = () => {
   const handleTeamSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newSize = parseInt(e.target.value, 10);
     setTeamSize(newSize);
+    setAmount(newSize*baseAmount);
+    console.log("Team Size Changed :", newSize );
     setTeamMembers(Array.from({ length: newSize }, () => ({})));
   };
 
@@ -107,11 +110,11 @@ const Register: React.FC = () => {
 
   return (
     <div className="register-container">
-      <h1>Hackathon Registration</h1>
+      <h1>Hackattack Registration</h1>
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="hackathon">Select Hackathon</label>
+            <label className='selectHackathon-label' htmlFor="hackathon">Select Hackathon</label>
             <select
               id="hackathon"
               value={selectedHackathon}
@@ -206,6 +209,10 @@ const Register: React.FC = () => {
               </div>
             </div>
           ))}
+          <div className="form-group">
+            <label htmlFor="utr">Amount : ₹{amount}</label>
+            <img className="qr-code" src="qrcode.png" alt="QR Code for Payment" />
+          </div>
           <div className="form-group">
             <label htmlFor="utr">Payment QR Code</label>
             <img className="qr-code" src="qrcode.png" alt="QR Code for Payment" />
