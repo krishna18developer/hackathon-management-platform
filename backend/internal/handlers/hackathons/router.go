@@ -21,6 +21,8 @@ func SetupRouter(router *gin.RouterGroup) {
 	domainsRouter := router.Group("/domains")
 	domains.SetupRouter(domainsRouter)
 
+	hackathonsRouter.GET("/names", Read)
+
 	hackathonsRouter.POST("/:id/register", RegisterTeam)
 
 	hackathonsRouter.Use(middleware.JWTMiddleware())

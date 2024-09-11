@@ -7,7 +7,7 @@ const Services: React.FC = () => {
       <div className="services container">
         <div className="service-top">
           <h1 className="section-title">What is HackAttack?</h1>
-          <p>"HackAttack" is a 48 hour hackathon organized by the Department of Information Technology - Anurag University. It aims to connect students with peers, mentors, and industry professionals, allowing participants to explore new technologies, develop skills, and showcase their talent. The hackathon encourages innovation, ethical and responsible technology development, and bridging the gap between academia and industry. Participants work on domains such as AI, ML, Cybersecurity, Web Development, IoT, and more.</p>
+          <p>HACK-ATTACK 2024 is a national-level hackathon bringing together innovative minds to solve real-world challenges through technology. Scheduled for December 6th-8th, 2024 , this event offers participants a platform to develop groundbreaking solutions across domains like AI, IoT, Blockchain, and more. With expert-led boot camps, mentoring sessions, and exciting prizes, HACK-ATTACK fosters creativity, teamwork, and technological advancement. Join us for a transformative experience where ideas turn into impactful solutions.</p>
         </div>
         <div className="service-bottom">
           <div className="service-item">

@@ -1,19 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './../styles/Register.css';
 
 const Register: React.FC = () => {
-  const [teamSize, setteamSize] = useState<number>(3);
+  const [teamSize, setTeamSize] = useState<number>(3);
   const [teamMembers, setTeamMembers] = useState<any[]>(Array.from({ length: 3 }, () => ({})));
   const [utr, setUtr] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const [success, setSuccess] = useState<string | null>(null);
+  const [hackathons, setHackathons] = useState<{ id: string; name: string }[]>([]);
+  const [selectedHackathon, setSelectedHackathon] = useState<string>('');
 
   const teamSizeOptions = [3, 4, 5, 6];
 
-  const handleteamSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLength = parseInt(e.target.value, 10);
-    setteamSize(newLength);
-    setTeamMembers(Array.from({ length: newLength }, () => ({})));
+  useEffect(() => {
+    // Fetch hackathons from the API
+    const fetchHackathons = async () => {
+      try {
+        const response = await axios.get('/api/hackathons/names');
+        console.log(response.data);
+
+        if (response.status === 200) {
+          const data = response.data;
+          setHackathons(data);
+          if (data.length > 0) {
+            setSelectedHackathon(data[0].id); // Set the first hackathon as default
+          }
+        } else {
+          throw new Error('Failed to fetch hackathons.');
+        }
+      } catch (error) {
+        setErrors(['Failed to load hackathons.']);
+      }
+    };
+
+    fetchHackathons();
+  }, []);
+
+  const handleTeamSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSize = parseInt(e.target.value, 10);
+    setTeamSize(newSize);
+    setTeamMembers(Array.from({ length: newSize }, () => ({})));
   };
 
   const handleInputChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,17 +85,15 @@ const Register: React.FC = () => {
       return;
     }
 
-    const formData = { teamSize, teamMembers, utr };
+    const formData = { teamSize, teamMembers, utr, hackathonId: selectedHackathon };
     console.log(formData);
 
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+      const response = await axios.post('http://localhost:3001/api/register', formData, {
+        headers: { 'Content-Type': 'application/json' }
       });
       
-      if (response.ok) {
+      if (response.status === 200) {
         setSuccess('Registration successful, payment pending. You will be emailed shortly.');
         setErrors([]);
       } else {
@@ -86,11 +111,26 @@ const Register: React.FC = () => {
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Team Name</label>
+            <label htmlFor="hackathon">Select Hackathon</label>
+            <select
+              id="hackathon"
+              value={selectedHackathon}
+              onChange={e => setSelectedHackathon(e.target.value)}
+            >
+              {hackathons.map(hackathon => (
+                <option key={hackathon.id} value={hackathon.id}>
+                  {hackathon.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="teamName">Team Name</label>
             <input
               type="text"
-              id="teamname"
-              name="name"
+              id="teamName"
+              name="teamName"
+              onChange={e => handleInputChange(0, e)}
             />
           </div>
           <div className="form-group">
@@ -98,7 +138,7 @@ const Register: React.FC = () => {
             <select
               id="teamSize"
               value={teamSize}
-              onChange={handleteamSizeChange}
+              onChange={handleTeamSizeChange}
             >
               {teamSizeOptions.map(option => (
                 <option key={option} value={option}>{option}</option>

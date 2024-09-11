@@ -15,6 +15,9 @@ const Main: React.FC = () => {
         <About />
         <Contact />
         <Sponsors />
+        <footer>
+        <p>&copy; 2024 Hackattack Hackathon Management Platform. All rights reserved.</p>
+      </footer>
     </>
   );
 }
