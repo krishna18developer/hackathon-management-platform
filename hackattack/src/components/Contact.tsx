@@ -5,7 +5,8 @@ const Contact: React.FC = () => {
     <div id="contact">
       <div>
       <h1 className="section-title">Contact</h1>
-      <p>Mahesh - </p>
+        <p className="section-content"><span>Mahesh</span> - 94947 91201</p>
+        <p className="section-content"><span>Chinmayee</span> - 93463 12543 </p>
       </div>
     </div>
   );

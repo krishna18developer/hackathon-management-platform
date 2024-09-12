@@ -32,7 +32,7 @@ const LaunchPage: React.FC = () => {
 
   const handleVideoEnd = () => {
     setVideoPlayed(true);
-    setTimeout(() => navigate('/home'), 2000); // Delay for smooth transition
+    setTimeout(() => navigate('/'), 2000); // Delay for smooth transitionxw
   };
 
   return (
@@ -40,7 +40,7 @@ const LaunchPage: React.FC = () => {
       {showVideo ? (
         <div className="video-section">
           <video
-            src="/test.mp4"
+            src="/launch-video.mp4"
             autoPlay
             onEnded={handleVideoEnd}
             className="launch-video"

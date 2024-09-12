@@ -46,6 +46,22 @@ p {
 	letter-spacing: 0.2rem;
 	text-align: center;
 }
+
+.section-content {
+	font-size: 2rem;
+	font-weight: 300;
+	color: rgb(255, 249, 249);
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.2rem;
+	text-align: center;
+}
+.section-content span {
+	color: crimson;
+}
+
+
+
 .section-title span {
 	color: crimson;
 }
@@ -869,3 +885,4 @@ p {
     width: auto;  /* This maintains the aspect ratio of the logo */
     transition: transform 0.3s ease;
 }
+

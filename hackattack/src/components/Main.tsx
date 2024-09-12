@@ -17,6 +17,8 @@ const Main: React.FC = () => {
         <Header />
         <Hero />
         <Services />
+        <Contact />
+
         <footer>
         <p>&copy; 2024 Hackathon Management Platform. All rights reserved.</p>
       </footer>
